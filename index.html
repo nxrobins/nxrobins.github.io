@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-
-
 <html>
   <head>
     <title>Opentok Quick Start</title>
@@ -21,8 +19,9 @@
       });
      
       session.connect(token, function(error) {
-        var publisher = OT.initPublisher();
-        session.publish(publisher);
+        var publisher = OT.initPublisher("myPublisher",
+                                 {width:400, height:300})
+session.publish(publisher);
       });
     </script>
   </head>
