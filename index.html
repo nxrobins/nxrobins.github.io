@@ -19,9 +19,13 @@
       });
      
       session.connect(token, function(error) {
-        var publisher = OT.initPublisher("myPublisher",
-                                 {width:400, height:300})
-session.publish(publisher);
+         var publisher = OT.initPublisher("myPublisher")
+  session.publish(publisher);
+   
+  function resizePublisher() {
+    var pubElement = document.getElementById(publisher.id);
+    pubElement.style.width = "1000px";
+    pubElement.style.height = "750px";
       });
     </script>
   </head>
