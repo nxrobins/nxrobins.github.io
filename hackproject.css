@@ -1,5 +1,5 @@
 body{
-	background-color:#C8C8C8;
+	background-color:#99D98F;
 }
 
 .header{
@@ -16,25 +16,6 @@ h3{
 h1{
 	font-family:Kulturista;
 	text-align:center;
+	color:#105C04;
 
-}
-
-table{
-	border-width: 
-}
-
-}
-
-input{
-    background: none repeat scroll 0% 0% #FFF;
-    border: 1px solid #EDEDED;
-    color: inherit;
-    margin-right: 5px;
-    display: inline-block;
-    min-width: 100px;
-    padding: 10px 15px;
-    margin-bottom: 5px;
-    line-height: 1.42;
-    vertical-align: middle;
-    border-radius: 4px;
 }
