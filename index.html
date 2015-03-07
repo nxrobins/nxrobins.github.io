@@ -19,7 +19,7 @@
       });
      var publisher = OT.initPublisher("myPublisher");
       session.connect(token, function(error) {
-         
+          
   session.publish(publisher);
   	});
    
@@ -29,8 +29,9 @@
     pubElement.style.height = "750px";
       };
 
-      resizePublisher();
-    
+      window.onload = function() {
+      	resizePublisher();
+    	}
     </script>
     <link href="http://caramel.ga/Caramel.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
