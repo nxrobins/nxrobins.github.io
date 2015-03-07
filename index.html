@@ -21,10 +21,11 @@
 
 	  function resizePublisher() {
     	var pubElement = document.getElementById(publisher.	id);
-    	pubElement.style.width = "500px";
-    	pubElement.style.height = "500px";
+    	pubElement.style.width = "250px";
+    	pubElement.style.height = "250px";
     	pubElement.style.marginLeft ="auto";
     	pubElement.style.marginRight ="auto";
+    	pubElement.style.borderStyle ="solid";
       };
 
 
@@ -42,8 +43,16 @@
 
   </head>
   <body>
-    <input placeholder="Username" type="text"></input>
     <h1>Group Study</h1>
+    <select>
+        <option>Home</option>
+        <option>School</option>
+        <option>Major</option>
+        <option>Tutors</option>
+        <option>Help</option>
+
+    </select>
+
    
 
   </body>
