@@ -1,0 +1,34 @@
+body{
+	background-color:#C8C8C8;
+}
+
+.header{
+	position: relative;
+	z-index: 998;
+	padding-bottom: 0px;
+	margin: 7px 0px;
+}
+h3{
+	font-family:Kulturista;
+	display:inline-block;
+}
+
+div:nth-child(1){
+	float:right;
+
+}
+
+h1{
+	font-family:Kulturista;
+	text-align:center;
+
+}
+
+table{
+	border-width: 
+}
+
+#myPublisherDiv{
+	margin-left:auto;
+	margin-right:auto;
+}
