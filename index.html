@@ -17,9 +17,9 @@
       session.on("streamCreated", function(event) {
         session.subscribe(event.stream);
       });
-     
+     var publisher = OT.initPublisher("myPublisher");
       session.connect(token, function(error) {
-         var publisher = OT.initPublisher("myPublisher")
+         
   session.publish(publisher);
   	});
    
