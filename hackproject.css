@@ -19,9 +19,6 @@ h1{
 	color:#105C04;
 
 }
-li{
-	color:#145D04;
-}
 
 #cssmenu,
 #cssmenu ul,
@@ -34,7 +31,7 @@ li{
   font-weight: normal;
   text-decoration: none;
   line-height: 1;
-  font-family: 'Lato', sans-serif;
+  font-family: "Kulturista", sans-serif;
   font-size: 14px;
   position: relative;
 }
@@ -47,7 +44,7 @@ li{
 }
 #cssmenu > ul > li {
   cursor: pointer;
-  background: #000;
+  background:transparent;
   border-bottom: 1px solid #4c4e53;
 }
 #cssmenu > ul > li:last-child {
@@ -76,7 +73,7 @@ li{
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #97c700), color-stop(100%, #709400));
   background: -webkit-linear-gradient(#97c700 0%, #709400 100%);
   background: linear-gradient(#97c700 0%, #709400 100%);
-  color: #4e5800;
+  color:#145D04;
   text-shadow: 0 1px 1px #709400;
 }
 #cssmenu > ul > li.has-sub > a:after {
