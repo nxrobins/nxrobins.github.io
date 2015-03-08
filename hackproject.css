@@ -19,3 +19,21 @@ h1{
 	color:#105C04;
 
 }
+li{
+	color:#145D04;
+}
+
+#top-header{
+	float:left
+	position:absolute;
+	left:-28000px;
+	top:-28000px;
+	display:none;
+	max-width:280px;
+	min-width:50px;
+	font-size:10.5px;
+	line-height:12px;
+	direction:ltr;
+	box-shadow:none;
+	padding:0;
+}
