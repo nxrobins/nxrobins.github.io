@@ -20,22 +20,6 @@ h1{
 
 }
 
-.instructions{
-	display:inline-block;
-	border:5px solid grey;
-
-}
-
-.wrap{
-	margin:auto;
-}
-
-.steps{
-	text-align:center;
-
-}
-
-
 #cssmenu,
 #cssmenu ul,
 #cssmenu li,
@@ -126,4 +110,23 @@ h1{
 #cssmenu ul ul li:last-child {
   border: none;
 }
-
+$('#cssmenu ul ul li:odd').addClass('odd');
+$('#cssmenu ul ul li:even').addClass('even');
+$('#cssmenu > ul > li > a').click(function() {
+  $('#cssmenu li').removeClass('active');
+  $(this).closest('li').addClass('active');	
+  var checkElement = $(this).next();
+  if((checkElement.is('ul')) && (checkElement.is(':visible'))) {
+    $(this).closest('li').removeClass('active');
+    checkElement.slideUp('normal');
+  }
+  if((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
+    $('#cssmenu ul ul:visible').slideUp('normal');
+    checkElement.slideDown('normal');
+  }
+  if($(this).closest('li').find('ul').children().length == 0) {
+    return true;
+  } else {
+    return false;	
+  }		
+});
