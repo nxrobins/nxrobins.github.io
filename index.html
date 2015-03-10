@@ -25,9 +25,11 @@
     	var pubElement = document.getElementById(publisher.	id);
     	pubElement.style.width = "250px";
     	pubElement.style.height = "250px";
-    	pubElement.style.marginLeft ="auto";
-    	pubElement.style.marginRight ="auto";
+    	//pubElement.style.marginLeft ="auto";
+    	//pubElement.style.marginRight ="auto";
+    	pubElement.style.textAlign="center"
     	pubElement.style.borderStyle ="solid";
+    	pubElement.style.display="inline-block";
       };
 
 
@@ -45,6 +47,7 @@
 
   </head>
   <body>
+  <h1>Group Study</h1>
   <div id="cssmenu">
   <ul>
    <li class='active'><a href='index.html'><span>Home</span></a></li>
@@ -59,14 +62,12 @@
             <li><a href='#'><span>San Diego</span></a></li>
             <li><a href='#'><span>Santa Barbara</span></a></li>
            <li><a href='#'><span>Santa Cruz</span></a></li>
+           </ul>
          <li class='last'><a href='#'><span>Major</span></a></li>
-      </ul>
-   </li>
    <li><a href='#'><span>About</span></a></li>
    <li class='last'><a href='#'><span>Contact</span></a></li>
 </ul>
 </div>
-    <h1>Group Study</h1>
     <script type="text/javascript">
     $('#cssmenu ul ul li:odd').addClass('odd');
 $('#cssmenu ul ul li:even').addClass('even');
@@ -89,8 +90,21 @@ $('#cssmenu > ul > li > a').click(function() {
   }		
 });
 </script>
-
-   
+	<div class="wrap">
+	<h1>How it Works</h1>
+	<div class="instructions">
+		<h3 class="steps">Step 1</h3>
+		<p>Schools register themselves on the site and gain access to their own page</p>
+	</div>
+	<div class="instructions">
+		<h3 class="steps">Step 2</h3>
+		<p>Students and tutors register (for free) and select their school from the list</p>
+	</div>
+	<div class="instructions">
+		<h3 class="steps">Step 3</h3>
+		<p>Students gain access to (free) live group study chat rooms and tutoring sessions</p>
+	</div>
+	</div>
 
   </body>
 </html>
