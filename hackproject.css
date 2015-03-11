@@ -41,6 +41,19 @@ h1{
 video{
 	border:10px solid black;
 }
+
+#video{
+	text-align:center;
+}
+
+.steps{
+	font-family:Nudista;
+	color:#072346;
+}
+.stuff{
+	font-family:Nudista;
+	color:#072346;
+}
 #cssmenu,
 #cssmenu ul,
 #cssmenu li,
