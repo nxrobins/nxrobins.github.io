@@ -44,6 +44,7 @@ video{
 
 #video{
 	text-align:center;
+	width:100%;
 }
 
 .steps{
@@ -53,6 +54,7 @@ video{
 .stuff{
 	font-family:Nudista;
 	color:#072346;
+	font-size: 15px;
 }
 #cssmenu,
 #cssmenu ul,
