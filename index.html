@@ -28,12 +28,13 @@
 		pubElement.style.borderStyle ="solid";
     	pubElement.style.display="inline-block";
     	pubElement.style.float="left";
-    	
+    	var videodiv = document.getElementById("video");
+      videodiv.appendChild(pubElement);
 
       };
 
-      var videodiv = document.getElementById("video");
-      videodiv.appendChild(publisher);
+      
+      //console.log("I just appended");
 
       session.connect(token, function(error) {
           
@@ -93,8 +94,7 @@ $('#cssmenu > ul > li > a').click(function() {
   }		
 });
 </script>
-	<div id="video">
-	</div>
+	
 	<div class="wrap">
 	<h1>How it Works</h1>
 	<div class="instructions">
@@ -110,7 +110,8 @@ $('#cssmenu > ul > li > a').click(function() {
 		<p class="stuff">Students gain access to (free) live group study chat rooms and tutoring sessions</p>
 	</div>
 	</div>
-
+<div id="video">
+	</div>
   </body>
 </html>
 

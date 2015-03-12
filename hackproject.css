@@ -43,8 +43,14 @@ video{
 }
 
 #video{
-	text-align:center;
-	width:100%;
+	display:block;
+	position:relative;
+	width:100px;
+	margin-left:auto;
+	margin-right:auto;
+
+
+	
 }
 
 .steps{
