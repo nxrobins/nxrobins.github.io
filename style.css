@@ -1,0 +1,281 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   PREAM Portfolio — Nigel Xavier
+   The prompt is the medium.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+    --bg: #08080a;
+    --surface: #0f0f12;
+    --border: #1a1a20;
+    --text: #e8e6e3;
+    --text-muted: #7a7872;
+    --accent: #c9a227;
+    --accent-dim: #c9a22722;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', -apple-system, sans-serif;
+    --space-xs: 0.5rem;
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+    --space-xl: 8rem;
+}
+
+/* ── Reset ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code {
+    font-family: var(--mono);
+    font-size: 0.85em;
+    background: var(--surface);
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    border: 1px solid var(--border);
+}
+
+/* ── Texture layers ────────────────────────────────────────────────────── */
+.grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.grid-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.035;
+    background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+}
+
+/* ── Hero ──────────────────────────────────────────────────────────────── */
+.hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--space-lg) var(--space-md);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.overline {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+}
+
+.title {
+    font-family: var(--mono);
+    font-size: clamp(3.5rem, 12vw, 8rem);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: var(--space-md);
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    max-width: 480px;
+}
+
+/* ── Cursor block ──────────────────────────────────────────────────────── */
+.cursor-block {
+    position: absolute;
+    bottom: var(--space-lg);
+    left: var(--space-md);
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+.prompt { color: var(--accent); }
+.caret {
+    animation: blink 1s step-end infinite;
+    color: var(--accent);
+}
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* ── Main ──────────────────────────────────────────────────────────────── */
+main {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 var(--space-md) var(--space-xl);
+}
+
+/* ── Section label ─────────────────────────────────────────────────────── */
+.section-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: var(--space-xs);
+    margin-bottom: var(--space-lg);
+}
+
+/* ── Project cards ─────────────────────────────────────────────────────── */
+.project {
+    margin-bottom: var(--space-lg);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--surface);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.project:hover {
+    border-color: var(--accent-dim);
+    box-shadow: 0 0 40px var(--accent-dim);
+}
+
+.project-header {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+}
+
+.project-index {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: var(--accent);
+    opacity: 0.6;
+}
+
+.project-title {
+    font-family: var(--mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.project-desc {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    max-width: 640px;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: var(--space-sm);
+}
+
+.tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 0.25em 0.6em;
+    border-radius: 2px;
+}
+
+.project-links {
+    margin-top: var(--space-sm);
+}
+
+.project-link {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--accent);
+    transition: opacity 0.2s;
+}
+.project-link:hover {
+    opacity: 0.7;
+    text-decoration: none;
+}
+
+/* ── Colophon ──────────────────────────────────────────────────────────── */
+.colophon {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border);
+}
+.colophon-text {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.8;
+    opacity: 0.6;
+}
+
+/* ── Footer ────────────────────────────────────────────────────────────── */
+footer {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--space-md);
+}
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--border);
+}
+.footer-name, .footer-year {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+}
+
+/* ── Scroll reveal ─────────────────────────────────────────────────────── */
+.project {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.project.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ── Responsive ────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+    .hero { padding: var(--space-md) var(--space-sm); }
+    main { padding: 0 var(--space-sm) var(--space-lg); }
+    .title { font-size: clamp(2.5rem, 15vw, 5rem); }
+    .project { padding: var(--space-sm); }
+    .project-title { font-size: 1.2rem; }
+    .cursor-block { left: var(--space-sm); bottom: var(--space-md); }
+}

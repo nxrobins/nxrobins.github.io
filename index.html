@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nigel Xavier</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="grain"></div>
+    <div class="grid-bg"></div>
+
+    <header class="hero">
+        <div class="hero-inner">
+            <p class="overline">systems · language · cognition</p>
+            <h1 class="title">Nigel<br>Xavier</h1>
+            <p class="subtitle">Building the infrastructure agents think with.</p>
+        </div>
+        <div class="cursor-block" aria-hidden="true">
+            <span class="prompt">&gt; </span><span class="typed"></span><span class="caret">█</span>
+        </div>
+    </header>
+
+    <main>
+        <section class="projects">
+            <h2 class="section-label">Projects</h2>
+
+            <article class="project" data-index="01">
+                <div class="project-header">
+                    <span class="project-index">01</span>
+                    <h3 class="project-title">SIGIL</h3>
+                </div>
+                <p class="project-desc">
+                    Agent-native programming language. Zero-trust, capability-secure, verified compilation targeting Wasm. 
+                    The language agents write in. ~14,000 LOC compiler, self-hosting lexer/parser/typechecker, 
+                    Z3-backed capability verification, two-ring security model, taint tracking, fuel-metered execution.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Rust</span>
+                    <span class="tag">PL Design</span>
+                    <span class="tag">Formal Verification</span>
+                    <span class="tag">Wasm</span>
+                </div>
+            </article>
+
+            <article class="project" data-index="02">
+                <div class="project-header">
+                    <span class="project-index">02</span>
+                    <h3 class="project-title">WAVE / CDF</h3>
+                </div>
+                <p class="project-desc">
+                    Cognitive substrate with empirically measured scaling laws. 
+                    Power-law consolidation (b ≈ 0.46) — LLM-driven abstraction produces 36% more compression than fixed rules.
+                    Kinetic theory of memory formalized via Boltzmann-Grad limits. 
+                    Rust harness, deterministic replay, multi-domain evaluation.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Cognitive Architecture</span>
+                    <span class="tag">Scaling Laws</span>
+                    <span class="tag">Rust</span>
+                    <span class="tag">Kinetic Theory</span>
+                </div>
+            </article>
+
+            <article class="project" data-index="03">
+                <div class="project-header">
+                    <span class="project-index">03</span>
+                    <h3 class="project-title">ViewSpec</h3>
+                </div>
+                <p class="project-desc">
+                    Universal intermediate representation for heterogeneous data domains. 
+                    Five structural elements — Address, Type, Graph, Derived Metadata, Provenance — extracted via 
+                    <code>Node&lt;T: DomainSemantics&gt;</code>. Universal address scheme: <code>domain:entity#aspect</code>. 
+                    Mathematical convergence across Wasserstein, spectral analysis, and heat diffusion.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">IR Design</span>
+                    <span class="tag">Type Theory</span>
+                    <span class="tag">Graph Systems</span>
+                    <span class="tag">Convergence</span>
+                </div>
+            </article>
+
+            <article class="project" data-index="04">
+                <div class="project-header">
+                    <span class="project-index">04</span>
+                    <h3 class="project-title">Topology Engine</h3>
+                </div>
+                <p class="project-desc">
+                    Organizational architecture for the agent era. 
+                    The coordination layer that sits between enterprise deployment infrastructure 
+                    and the humans navigating transformation. 
+                    Where agents meet organizational topology.
+                </p>
+                <div class="project-tags">
+                    <span class="tag">Organizational Design</span>
+                    <span class="tag">Agent Systems</span>
+                    <span class="tag">Enterprise</span>
+                </div>
+            </article>
+
+            <article class="project" data-index="05">
+                <div class="project-header">
+                    <span class="project-index">05</span>
+                    <h3 class="project-title">Writing</h3>
+                </div>
+                <p class="project-desc">
+                    Essays on cognition, infrastructure, and the shape of what's next.
+                </p>
+                <div class="project-links">
+                    <a href="https://nigelxavier.substack.com" class="project-link" target="_blank" rel="noopener">
+                        Substack →
+                    </a>
+                </div>
+            </article>
+        </section>
+
+        <section class="colophon">
+            <p class="colophon-text">
+                Co-developed with persistent cognitive agents.<br>
+                The prompt is the medium.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <span class="footer-name">NX</span>
+            <span class="footer-year">2026</span>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
