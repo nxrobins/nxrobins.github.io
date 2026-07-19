@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sigil — Two Frontiers Worth Claiming</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #08080a;
+            --surface: #0f0f12;
+            --border: #1a1a20;
+            --text: #e8e6e3;
+            --text-muted: #7a7872;
+            --accent: #c9a227;
+            --accent-dim: #c9a22722;
+            --mono: 'JetBrains Mono', monospace;
+            --sans: 'Inter', -apple-system, sans-serif;
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 8rem;
+            --measure: 760px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 16px; scroll-behavior: smooth; }
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        code {
+            font-family: var(--mono);
+            font-size: 0.85em;
+            background: var(--surface);
+            padding: 0.15em 0.4em;
+            border-radius: 3px;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        /* ── Texture layers ─────────────────────────────────────────────── */
+        .grain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.035;
+            background-image:
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* ── Top bar ────────────────────────────────────────────────────── */
+        .topbar {
+            position: relative;
+            z-index: 1;
+            max-width: var(--measure);
+            margin: 0 auto;
+            padding: var(--space-md) var(--space-md) 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .topbar a { color: var(--text-muted); }
+        .topbar a:hover { color: var(--accent); text-decoration: none; }
+
+        /* ── Hero ───────────────────────────────────────────────────────── */
+        .hero {
+            position: relative;
+            z-index: 1;
+            max-width: var(--measure);
+            margin: 0 auto;
+            padding: var(--space-lg) var(--space-md) var(--space-md);
+        }
+        .overline {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: var(--space-sm);
+        }
+        .title {
+            font-family: var(--mono);
+            font-size: clamp(2.2rem, 7vw, 3.6rem);
+            font-weight: 700;
+            line-height: 1.0;
+            letter-spacing: -0.03em;
+            color: var(--text);
+            margin-bottom: var(--space-md);
+        }
+        .meta {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem 1rem;
+        }
+        .meta .dot { color: var(--accent); opacity: 0.5; }
+        .lede {
+            font-size: 1.15rem;
+            font-weight: 300;
+            color: var(--text);
+            opacity: 0.9;
+            margin-top: var(--space-md);
+            max-width: 640px;
+        }
+
+        /* ── Article ────────────────────────────────────────────────────── */
+        article {
+            position: relative;
+            z-index: 1;
+            max-width: var(--measure);
+            margin: 0 auto;
+            padding: var(--space-md) var(--space-md) var(--space-xl);
+        }
+        article p { margin: var(--space-sm) 0; color: var(--text); }
+        article p.muted { color: var(--text-muted); }
+        article strong { color: var(--text); font-weight: 600; }
+
+        .rule {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: var(--space-lg) 0;
+        }
+
+        /* ── Frontier section headers ───────────────────────────────────── */
+        .frontier {
+            display: flex;
+            align-items: baseline;
+            gap: var(--space-sm);
+            margin: var(--space-lg) 0 var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--border);
+        }
+        .frontier-index {
+            font-family: var(--mono);
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--accent);
+            opacity: 0.7;
+            flex-shrink: 0;
+        }
+        .frontier h2 {
+            font-family: var(--mono);
+            font-size: clamp(1.4rem, 4vw, 1.9rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+        }
+
+        h3 {
+            font-family: var(--mono);
+            font-size: 1.0rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            color: var(--accent);
+            margin: var(--space-md) 0 var(--space-xs);
+        }
+        h3 .rung {
+            color: var(--text-muted);
+            font-weight: 300;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        /* ── Lists ──────────────────────────────────────────────────────── */
+        ul { margin: var(--space-sm) 0; padding-left: 1.2rem; }
+        li { margin: 0.4rem 0; color: var(--text); }
+        li::marker { color: var(--accent); }
+        ul.spaced li { margin: 0.7rem 0; }
+
+        /* ── Code blocks ────────────────────────────────────────────────── */
+        pre {
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            line-height: 1.6;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 2px solid var(--accent-dim);
+            border-radius: 2px;
+            padding: var(--space-sm) var(--space-md);
+            margin: var(--space-sm) 0;
+            overflow-x: auto;
+            color: var(--text);
+        }
+        pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: inherit;
+            color: inherit;
+        }
+        .c-comment { color: var(--text-muted); font-style: italic; }
+        .c-key { color: var(--accent); }
+
+        /* ── Blockquote ─────────────────────────────────────────────────── */
+        blockquote {
+            border-left: 2px solid var(--accent);
+            padding: var(--space-xs) 0 var(--space-xs) var(--space-md);
+            margin: var(--space-md) 0;
+            color: var(--text);
+            font-style: italic;
+            opacity: 0.92;
+        }
+
+        /* ── Callout (standout insight) ─────────────────────────────────── */
+        .callout {
+            background: var(--accent-dim);
+            border: 1px solid var(--accent-dim);
+            border-left: 2px solid var(--accent);
+            border-radius: 2px;
+            padding: var(--space-sm) var(--space-md);
+            margin: var(--space-md) 0;
+        }
+        .callout .tag {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            display: block;
+            margin-bottom: var(--space-xs);
+        }
+        .callout p { margin: 0.3rem 0; }
+
+        /* ── Note (honest caveat) ───────────────────────────────────────── */
+        .note {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border: 1px dashed var(--border);
+            border-radius: 2px;
+            padding: var(--space-sm) var(--space-md);
+            margin: var(--space-md) 0;
+        }
+        .note .tag {
+            font-family: var(--mono);
+            font-size: 0.62rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* ── Prior-art / milestone chips ────────────────────────────────── */
+        .label-inline {
+            font-family: var(--mono);
+            color: var(--text);
+            font-weight: 400;
+        }
+
+        /* ── Footer ─────────────────────────────────────────────────────── */
+        footer {
+            position: relative;
+            z-index: 1;
+            max-width: var(--measure);
+            margin: 0 auto;
+            padding: var(--space-md);
+        }
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--space-sm);
+            border-top: 1px solid var(--border);
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+        .footer-note {
+            font-family: var(--mono);
+            font-size: 0.78rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            opacity: 0.6;
+            line-height: 1.8;
+            margin-top: var(--space-lg);
+            text-align: center;
+        }
+
+        /* ── Responsive ─────────────────────────────────────────────────── */
+        @media (max-width: 600px) {
+            .hero { padding: var(--space-md) var(--space-sm); }
+            .topbar { padding: var(--space-sm) var(--space-sm) 0; }
+            article { padding: var(--space-sm) var(--space-sm) var(--space-lg); }
+            pre { padding: var(--space-sm); font-size: 0.75rem; }
+            .frontier { flex-direction: column; gap: 0.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="grain"></div>
+    <div class="grid-bg"></div>
+
+    <nav class="topbar">
+        <a href="../index.html">← NX</a>
+        <span>design · vision</span>
+    </nav>
+
+    <header class="hero">
+        <p class="overline">systems · language · cognition</p>
+        <h1 class="title">Two Frontiers<br>Worth Claiming</h1>
+        <div class="meta">
+            <span><span class="dot">▪</span> Status: Draft</span>
+            <span><span class="dot">▪</span> 2026-07-19</span>
+            <span><span class="dot">▪</span> Scope: design / vision, not a spec</span>
+        </div>
+        <p class="lede">
+            Sigil's edge is not out-optimizing LLVM on raw codegen — that race is lost before it starts.
+            Its edge is that it may be the only <em>verified, capability-secure language being written by agents</em>.
+            The frontiers worth claiming are the ones where "well-positioned" and "never been done" overlap:
+            the ones that fuse verification with the agent-in-the-loop premise.
+        </p>
+    </header>
+
+    <article>
+        <p class="muted">Two qualify. Both build directly on pieces Sigil already has — a self-hosting typechecker, Z3-backed capability verification, taint tracking, fuel-metered execution, a two-ring security model, and verified lowering to Wasm.</p>
+
+        <ul class="spaced">
+            <li><strong>Frontier 1 — Cost as a verified type.</strong> Lift <em>fuel</em> from a runtime meter to a static, SMT-proven bound carried in the type. Sigil already has both halves nobody else combines: a cost model (fuel) and a prover (Z3).</li>
+            <li><strong>Frontier 4 — The verifier inside the generation loop.</strong> Move the verifier <em>into</em> the agent's decode loop, so unsafe or unbounded code is unemittable, and carry intent from prompt → proof → binary. Novel <em>because of</em> Sigil's premise, not merely a good fit for its tools.</li>
+        </ul>
+
+        <p>They are not independent. Frontier 1 gives Frontier 4 something concrete to constrain on and attest to. The last section makes that composition explicit.</p>
+
+        <hr class="rule">
+
+        <!-- ═══════════════ FRONTIER 1 ═══════════════ -->
+        <div class="frontier">
+            <span class="frontier-index">01</span>
+            <h2>Cost as a Verified Type</h2>
+        </div>
+
+        <h3>The gap</h3>
+        <p>Types today prove <em>what</em> a function computes. They say nothing about <em>how much it costs</em>. That omission is the root of a whole class of failures — unbounded computation, denial of service, runaway agents, unpredictable bills — that we currently catch (if at all) at runtime, as a trap, after the resources are already spent.</p>
+        <p>Sigil already meters fuel dynamically: each operation debits a budget, execution traps when the budget is exhausted. That is the <em>runtime</em> half. The frontier is the <em>static</em> half — proving, before the code ever runs, an upper bound on the fuel a function consumes as a function of its inputs, and carrying that bound in the type.</p>
+        <blockquote>Refinement types constrain <em>values</em> (<code>x: Int where x &gt; 0</code>). Cost types constrain <em>consumption</em> (<code>f: … @ fuel ≤ 3·len(xs) + 8</code>). It is the missing non-functional half of the type system.</blockquote>
+
+        <h3>The idea</h3>
+        <p>Every function's type carries a symbolic upper bound on its fuel:</p>
+        <pre><code><span class="c-comment">// illustrative pseudocode — not Sigil's real grammar</span>
+<span class="c-key">fn</span> dedupe(xs: List&lt;T&gt;) -&gt; List&lt;T&gt;
+    @ fuel &lt;= 3 * len(xs) + 8
+{
+    ...
+}</code></pre>
+        <p>The compiler either <strong>infers</strong> the bound bottom-up or <strong>checks</strong> an annotated one. <code>dedupe</code> may now only be called in a context that can prove it affords <code>3·len(xs) + 8</code> fuel — a guarantee available at every call site, across module boundaries, without whole-program analysis.</p>
+
+        <h3>Design sketch</h3>
+        <p><strong>1. The cost algebra.</strong> Assign each primitive operation a symbolic fuel cost drawn from <em>the same table the runtime meter uses</em>. Compose bottom-up:</p>
+        <ul>
+            <li>sequencing → sum of costs</li>
+            <li>branching → max (or a path-sensitive join under a known guard)</li>
+            <li>calls → substitute the callee's published cost signature</li>
+        </ul>
+        <p><strong>2. Loops and recursion — the hard part.</strong> A <code>map</code>/<code>fold</code> over a list of known length has a syntactic bound. General <code>while</code>/recursion needs a <em>ranking function</em> and a <em>cost recurrence</em>. Solving recurrences is not Z3's job. The pragmatic, solver-friendly split is:</p>
+        <ul>
+            <li><strong>Author/agent annotates</strong> the closed-form bound (e.g. <code>fuel ≤ 3·len(xs) + 8</code>).</li>
+            <li><strong>Z3 discharges</strong> the inductive step: assuming the bound holds for the recursive sub-call, does it hold for the whole? — the same shape as verifying any inductive invariant.</li>
+        </ul>
+        <p class="muted">Bound <em>inference</em> (finding the template automatically) is a later refinement; bound <em>checking</em> is enough to ship.</p>
+        <p><strong>3. Z3's role is discharge, not discovery.</strong> The solver answers validity queries: <em>for all inputs, is</em> <code>actual_cost ≤ declared_bound</code><em>?</em> Keep the bound language inside a decidable fragment — linear integer arithmetic / Presburger — so queries stay robust. Polynomial bounds via templates are a stretch goal; unrestricted nonlinear arithmetic is where Z3 gets flaky, so it stays out of the core.</p>
+        <p><strong>4. The soundness anchor (the crux).</strong> A static cost type is meaningless unless it <em>provably matches</em> the fuel the runtime actually charges. The obligation:</p>
+        <blockquote>For every operation, the fuel debited by the emitted Wasm equals the fuel counted in the static model.</blockquote>
+        <p>This is a translation-validation-flavored property on the Sigil → Wasm lowering. Because Sigil already does verified lowering <em>and</em> already meters fuel, it is closer to discharging this than anyone. This sentence is what makes the feature "never been done in production" rather than "a linter."</p>
+        <p><strong>5. Composability — a genuine structural win.</strong> Because each function <em>publishes</em> its cost signature, cost reasoning survives separate compilation. This sidesteps, for the cost dimension, the classic tension between modular builds and whole-program analysis that sinks traditional WCET tooling.</p>
+
+        <h3>What it unlocks: resource capabilities</h3>
+        <div class="callout">
+            <span class="tag">Standout contribution</span>
+            <p>Fuse cost types with the existing capability system and you get capabilities that gate <strong>resources</strong>, not just <strong>permissions</strong>. "You may call this, but only if it provably costs ≤ X." Zero-trust extends from <em>what code may do</em> to <em>how much it may spend</em>.</p>
+        </div>
+        <pre><code><span class="c-comment">// a capability authorizing bounded compute</span>
+<span class="c-key">cap</span> Compute(budget: Fuel)
+
+<span class="c-comment">// call rejected at COMPILE TIME if the callee's</span>
+<span class="c-comment">// proven bound may exceed budget</span>
+<span class="c-key">with</span> Compute(budget = 10_000) {
+    <span class="c-key">let</span> out = dedupe(xs);   <span class="c-comment">// ok iff 3*len(xs)+8 &lt;= 10_000 is provable here</span>
+}</code></pre>
+        <p>For a world of untrusted, agent-generated software running on metered compute, this is the natural — and currently missing — primitive: a cost contract enforced by the type system and attested by the binary.</p>
+
+        <h3>Where the frontier line actually is</h3>
+        <p class="muted">Each ingredient has prior art; the <em>fusion</em> is new.</p>
+        <ul class="spaced">
+            <li><span class="label-inline">RAML</span> (Resource-Aware ML, Hoffmann) — automatic amortized analysis, the closest serious system. Research language; not capability-secure, not agent-native, no verified Wasm.</li>
+            <li><span class="label-inline">Liquid Haskell / TiML / RelCost</span> — refinement and cost-in-types work, all research-scoped.</li>
+            <li><span class="label-inline">EVM gas / Wasmtime fuel</span> — dynamic metering, zero static proof.</li>
+        </ul>
+        <p>Novelty to claim: <em>static, SMT-verified cost as a first-class type, fused with capability security (resource capabilities), preserved through verified compilation to Wasm, in an agent-native language.</em></p>
+
+        <h3>Risks / open questions</h3>
+        <ul>
+            <li><strong>Precision vs. soundness.</strong> Over-approximate bounds are always sound but may reject reasonable programs. Inference quality decides whether the feature is usable or merely correct.</li>
+            <li><strong>Nonlinear cost.</strong> Anything past linear/polynomial strains Z3. Mitigation: restrict the bound language; reject what can't be expressed decidably.</li>
+            <li><strong>Cost-model fidelity.</strong> If downstream Wasm engines don't honor the fuel model uniformly, wall-clock reality diverges from the proof (same failure mode as constant-time guarantees leaking at the JIT boundary). The guarantee is precise at the fuel-semantics level; be honest about where it stops.</li>
+        </ul>
+
+        <div class="note">
+            <span class="tag">First milestone</span>
+            <p style="margin-top:0.5rem">Linear bounds only; annotations required (no inference); structural recursion only; Z3 discharges the inductive step; one <code>Compute</code> capability that gates calls against a static budget. Prove the fuel-fidelity lemma for the primitive-op table. Ship that, and the cost-type story is real — everything above it is refinement.</p>
+        </div>
+
+        <hr class="rule">
+
+        <!-- ═══════════════ FRONTIER 4 ═══════════════ -->
+        <div class="frontier">
+            <span class="frontier-index">04</span>
+            <h2>The Verifier Inside<br>the Generation Loop</h2>
+        </div>
+
+        <h3>The premise shift</h3>
+        <p>For sixty years the compiler has run <em>after</em> the human writes code. Sigil is written <em>by agents</em>. That relocates the verifier: types, capabilities, taint, and Z3 can move <em>inside</em> the LLM's generation loop, so that</p>
+        <ul>
+            <li>the agent literally <strong>cannot emit</strong> code that fails verification (constraint, not correction), and</li>
+            <li>the <strong>intent</strong> that produced the code is carried as a first-class artifact — prompt → spec → code → proof → binary.</li>
+        </ul>
+        <p>"The prompt is the medium," made literal and checkable.</p>
+
+        <h3>The ladder</h3>
+        <p class="muted">From tractable to research-frontier — each rung is shippable on its own.</p>
+
+        <h3>Layer 0 — Syntax-constrained decoding <span class="rung">· exists; baseline</span></h3>
+        <p>Grammar-constrained decoding (GBNF, Outlines, guidance) guarantees syntactically valid Sigil. Table stakes.</p>
+
+        <h3>Layer 1 — Type-constrained decoding <span class="rung">· emerging research</span></h3>
+        <p>Filter each generation step to well-typed continuations: after <code>x.</code>, only fields/methods valid for <code>x</code>; an <code>Int</code> position can't be filled by a <code>String</code>. Sigil's self-hosting typechecker is the asset — driven incrementally, it is the oracle. Tractable for local constraints; harder where legality depends on not-yet-generated context (handled by unit-level backtracking, below).</p>
+
+        <h3>Layer 2 — Capability / taint-constrained decoding <span class="rung">· beyond the general frontier</span></h3>
+        <p>Because these are Sigil's semantics. Mask any continuation that would use an ungranted capability, create a taint flow from secret to sink, or illegally cross the two-ring boundary. The agent <em>cannot express</em> a capability escalation.</p>
+        <div class="callout">
+            <span class="tag">Standout contribution</span>
+            <p><strong>Generation-time capability confinement</strong> — a security posture nobody has, because nobody has (agent-native) × (capability-secure) × (constrained decoding) in one system.</p>
+        </div>
+
+        <h3>Layer 3 — SMT in the loop <span class="rung">· the frontier</span></h3>
+        <p>Two modes:</p>
+        <ul class="spaced">
+            <li><strong>Verify-and-backtrack (proof-carrying generation).</strong> The agent proposes a function plus its spec/invariant; Z3 checks; on failure the <em>counterexample</em> is fed back into context and the agent regenerates. The compiler's counterexamples become inference-time signal. Sigil can prototype a version of this today — Z3 is already integrated.</li>
+            <li><strong>Solver-guided decoding.</strong> The solver actively prunes the search — only propose branch conditions consistent with reaching the required postcondition. This is CEGIS (counterexample-guided inductive synthesis) fused with LLM decoding. Greenfield; high risk, high novelty.</li>
+        </ul>
+        <pre><code>agent → <span class="c-key">fn</span> f(...) { ... }  @ ensures P
+Z3    → UNSAT proof? no. counterexample: x = -1 violates P at line 4
+agent ← regenerate with {x = -1 ⇒ P fails at line 4}</code></pre>
+
+        <h3>Layer 4 — Intent-carrying compilation <span class="rung">· the attestation payoff</span></h3>
+        <p>The prompt/spec is not discarded — it is captured and carried to the binary, enabling:</p>
+        <ul class="spaced">
+            <li><strong>Conformance checking</strong> — check the code against the <em>intent</em>, not just against itself. (Honest bound: only the <em>formalizable</em> fragment of intent is checkable. Types, capability requirements, and — crucially — <strong>cost bounds from Frontier 1</strong> are exactly that fragment.)</li>
+            <li><strong>Provenance / attestation</strong> — the binary carries a signed chain <code>prompt → spec → code → proof → Wasm</code>. In a zero-trust world of agent-written software, this is the missing attestation primitive: verify <em>why</em> code exists and that it meets its stated contract. This plugs straight into ViewSpec, whose five structural elements already include <strong>Provenance</strong>.</li>
+        </ul>
+
+        <h3>Why Sigil specifically</h3>
+        <ul>
+            <li>Needs a <strong>fast incremental verifier</strong> — you cannot re-check the whole program per token. Sigil's self-hosting typechecker + Z3 is the enabler.</li>
+            <li>Needs the <strong>language semantics to <em>be</em> the safety properties</strong> (capabilities, taint), so "constrain to safe code" is meaningful. That is Sigil's entire design.</li>
+            <li>Needs <strong>SMT already in the loop.</strong> Z3 is integrated.</li>
+        </ul>
+        <p class="muted">Almost no one has all three together.</p>
+
+        <h3>Where the frontier line actually is</h3>
+        <ul class="spaced">
+            <li><span class="label-inline">Grammar-constrained decoding</span> (GBNF, Outlines, SynCode) — syntax only.</li>
+            <li><span class="label-inline">Type-constrained generation</span> (2024–25 papers) — types, not capabilities or SMT.</li>
+            <li><span class="label-inline">CEGIS / Sketch / Rosette</span> — synthesis, not LLM-native, not an agent-native language.</li>
+            <li><span class="label-inline">Proof-carrying code</span> (Necula, 1997) — the ancestor of Layer 4's attestation, but for human-shipped native binaries, not agent-generated code with prompt provenance.</li>
+            <li><span class="label-inline">Self-repair / self-debug agent loops</span> — post-hoc, not in-loop, not capability-aware.</li>
+        </ul>
+        <p>Novelty to claim: <em>capability/taint/SMT-constrained generation (Layers 2–3) and prompt → proof → binary attestation (Layer 4), in one agent-native language.</em></p>
+
+        <h3>Risks / open questions</h3>
+        <ul>
+            <li><strong>Per-token verification latency</strong> is the killer. Mitigation: don't constrain every token — cheap type masking per token, expensive SMT per <em>unit</em> (statement/expression), with backtracking at unit granularity.</li>
+            <li><strong>Constrained decoding can degrade quality</strong> — a locally legal token can paint the function into an unsatisfiable corner. Unit-level backtracking, not just token masking, is mandatory.</li>
+            <li><strong>Intent rarely formalizes.</strong> Attestation of <em>provenance</em> is achievable now; conformance to a <em>formal</em> spec is achievable only where intent is already formal — which is exactly where Frontier 1 helps.</li>
+        </ul>
+
+        <div class="note">
+            <span class="tag">First milestone</span>
+            <p style="margin-top:0.5rem">Layer 2 at expression granularity: capability- and taint-constrained generation with unit-level backtracking, driven by the existing typechecker; Layer 3 in verify-and-backtrack mode only (Z3 as a tool in an agent loop, counterexamples fed back). Emit a provenance record (<code>prompt hash → spec → proof → Wasm hash</code>) even before conformance checking exists. That is a shippable, genuinely novel slice.</p>
+        </div>
+
+        <hr class="rule">
+
+        <!-- ═══════════════ COMPOSITION ═══════════════ -->
+        <div class="frontier">
+            <span class="frontier-index">◇</span>
+            <h2>The Two Compose</h2>
+        </div>
+
+        <p>Frontier 1 and Frontier 4 are one system viewed from two ends.</p>
+        <ul class="spaced">
+            <li>Cost-as-a-type is a <strong>formalizable fragment of intent</strong>. Layer 4 can <em>check</em> it; Layers 2–3 can <em>enforce</em> it during generation.</li>
+            <li>So an agent can be <strong>constrained at generation time</strong> to emit only code within a fuel budget, and the binary can <strong>attest</strong> to its cost envelope.</li>
+        </ul>
+        <div class="callout">
+            <span class="tag">The artifact worth building</span>
+            <p><strong>Resource-bounded, capability-confined, provenance-attested agent code</strong> does not exist anywhere today. Each half has scattered prior art; the union, in an agent-native language that ships verified Wasm, is open ground. Sigil is the one codebase already holding all the pieces.</p>
+        </div>
+
+        <h3>Suggested sequencing</h3>
+        <ul class="spaced">
+            <li><strong>1.</strong> Frontier 1 first milestone (linear cost types + one <code>Compute</code> capability + fuel-fidelity lemma). The more self-contained build, and it produces the checkable intent fragment the rest leans on.</li>
+            <li><strong>2.</strong> Frontier 4 Layer 2 (capability/taint-constrained generation) on top of the existing typechecker.</li>
+            <li><strong>3.</strong> Frontier 4 Layer 3 verify-and-backtrack, using Z3 already present for Frontier 1.</li>
+            <li><strong>4.</strong> Layer 4 provenance record, then conformance checking over the formalizable fragment — starting with cost bounds.</li>
+        </ul>
+        <p>Each step ships value alone. Together they are the claim no incumbent can copy without first building Sigil's premise.</p>
+
+        <p class="footer-note">Co-developed with persistent cognitive agents.<br>The prompt is the medium.</p>
+    </article>
+
+    <footer>
+        <div class="footer-inner">
+            <span>NX</span>
+            <span>2026</span>
+        </div>
+    </footer>
+</body>
+</html>
