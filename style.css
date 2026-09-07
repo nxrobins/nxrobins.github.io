@@ -144,6 +144,25 @@ main {
     margin-bottom: var(--space-lg);
 }
 
+/* ── About ─────────────────────────────────────────────────────────────── */
+.about {
+    margin-bottom: var(--space-xl);
+}
+
+.about-text {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    max-width: 640px;
+}
+.about-text + .about-text {
+    margin-top: var(--space-sm);
+}
+.about-text strong {
+    font-weight: 600;
+    color: var(--text);
+}
+
 /* ── Project cards ─────────────────────────────────────────────────────── */
 .project {
     margin-bottom: var(--space-lg);
@@ -207,6 +226,9 @@ main {
 }
 
 .project-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
     margin-top: var(--space-sm);
 }
 
